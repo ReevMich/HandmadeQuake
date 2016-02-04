@@ -1,1 +1,5 @@
-﻿  HandmadeQuake.vcxproj -> C:\Users\cooly\Documents\GitHub\HandmadeQuake\HandmadeQuake\Debug\HandmadeQuake.exe
+﻿  sys_win.c
+  q_stl.c
+  common.c
+  Generating Code...
+  HandmadeQuake.vcxproj -> C:\Users\cooly\Documents\GitHub\HandmadeQuake\HandmadeQuake\Debug\HandmadeQuake.exe
