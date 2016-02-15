@@ -1,4 +1,5 @@
 #include <windows.h>
+#include<stdio.h>
 
 
 BOOL IsRunning = TRUE;
@@ -15,7 +16,7 @@ LRESULT CALLBACK MainWindProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam
 		case WM_ACTIVATE:
 		case WM_CREATE:
 		case WM_DESTROY:
-			IsRunning = FALSE;
+			//IsRunning = FALSE;
 			break;
 
 		default:
@@ -56,7 +57,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	mainWindow =  CreateWindowEx(
 		0,
 		"Module 2",
-		"Lesson 2.1",
+		"Lesson 2.3",
 		windowStyle,
 		200,		
 		200,
@@ -76,9 +77,26 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	PatBlt(deviceContext, 0, 0, 800, 600, BLACKNESS);
 	ReleaseDC(mainWindow, deviceContext);
 
+	// LARGE INTEGER struct data structure
+	LARGE_INTEGER frequency;
+
+	// Find out what the frequency of what our program is running at.
+	QueryPerformanceFrequency(&frequency);
+	
+	// convert frequency to the number of loops per second.
+	double secondsPerTick = 1.0 / (double)frequency.QuadPart;
+
+
+	// Time ticker. Tock is used to measure how long it takes for the 
+	// game loop execute all the code inside. As for the Tick it measures the complete time its
+	// taken since the last Tick which happens before the game loop ends.
+	LARGE_INTEGER tick,tock;
+	QueryPerformanceCounter(&tick); // Tick
+
 	// Windows message
 	MSG msg;
 	LRESULT result;
+
 	// Game Loop
 	while (IsRunning)
 	{
@@ -93,6 +111,18 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 		// Update our game if its time to
 		// Draw graphics if it's time to
+		Sleep(1000);
+		QueryPerformanceCounter(&tock); // Tock
+
+		// Calculating the time it took to run the code above.
+		__int64 interval = tock.QuadPart - tick.QuadPart;
+		double secondsGoneBy = (double)interval * secondsPerTick;
+
+		char buf[64];
+		sprintf_s(buf, 64, "Total time: %3.7f \n", secondsGoneBy );
+		OutputDebugString(buf);
+
+		QueryPerformanceCounter(&tick); // Tick 
 	}
 
 	return 0;
