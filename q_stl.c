@@ -1,6 +1,6 @@
 #include "quakedef.h"
 
-void Q_strcpy(uint8 *dest, uint8 *src)
+void Q_strcpy(char *dest, const char *src)
 {
 	// while pointer to src and count is valid copy bites to the destination.
 	while (*src) 
@@ -11,7 +11,7 @@ void Q_strcpy(uint8 *dest, uint8 *src)
 	*dest = 0;
 }
 
-void Q_strncpy(uint8 *dest, uint8 *src, int32 count)
+void Q_strncpy(char *dest, const char *src, int32 count)
 {
 
 	if (count < 0)
@@ -33,7 +33,7 @@ void Q_strncpy(uint8 *dest, uint8 *src, int32 count)
 	}
 }
 
-int32 Q_strlen(uint8 *str)
+int32 Q_strlen(const char  *str)
 {
 	int32 count = 0;
 
@@ -46,7 +46,7 @@ int32 Q_strlen(uint8 *str)
 	return count;
 }
 
-int32 Q_strcmp(uint8* str1, uint8* str2)
+int32 Q_strcmp(const char* str1, const char* str2)
 {
 	// While these two character pointers are the same
 	// keep looping until *s1 reaches the null terminator 0
@@ -63,7 +63,7 @@ int32 Q_strcmp(uint8* str1, uint8* str2)
 	return ((*str1 < *str2) ? -1 : 1);
 }
 
-int32 Q_atoi(uint8 *str)
+int32 Q_atoi(const char *str)
 {
 	int32 sign = 1;
 	int32 val = 0;
